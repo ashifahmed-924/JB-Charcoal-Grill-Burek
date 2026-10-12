@@ -106,10 +106,10 @@ export default function VisitUs() {
           DANDENONG
         </h2>
 
-        <div className="mt-8 grid gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12 items-start">
-          <div>
+        <div className="mt-6 sm:mt-8 grid gap-8 md:gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12 items-start">
+          <div className="min-w-0">
             <svg
-              className="mb-8 h-12 w-full max-w-md text-copper"
+              className="mb-6 sm:mb-8 h-10 sm:h-12 w-full max-w-none lg:max-w-md text-copper"
               viewBox="0 0 400 48"
               fill="none"
               aria-hidden
@@ -124,42 +124,42 @@ export default function VisitUs() {
               />
             </svg>
 
-            <address className="not-italic space-y-6">
-              <div data-visit-detail>
+            <address className="not-italic space-y-5 sm:space-y-6 w-full">
+              <div data-visit-detail className="w-full">
                 <p className="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-copper mb-2">
                   Address
                 </p>
-                <p className="font-display text-[1.25rem] sm:text-[1.5rem] md:text-[1.9rem] leading-tight">
+                <p className="font-display text-[1.2rem] sm:text-[1.5rem] md:text-[1.9rem] leading-tight break-words">
                   {restaurant.address.line1}
                   <br />
                   {restaurant.address.line2}
                 </p>
               </div>
 
-              <div data-visit-detail>
+              <div data-visit-detail className="w-full">
                 <p className="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-copper mb-2">
                   Phone
                 </p>
                 <a
                   href={`tel:${restaurant.phone.tel}`}
-                  className="text-xl text-oat hover:text-copper transition-colors"
+                  className="text-lg sm:text-xl text-oat hover:text-copper transition-colors"
                 >
                   {restaurant.phone.display}
                 </a>
               </div>
 
-              <div data-visit-detail>
+              <div data-visit-detail className="w-full">
                 <p className="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-copper mb-3">
                   Hours
                 </p>
-                <ul className="space-y-1.5 text-sm max-w-xs">
+                <ul className="space-y-1.5 text-sm w-full max-w-none lg:max-w-sm">
                   {restaurant.hours.map((row) => (
                     <li
                       key={row.day}
-                      className="flex justify-between gap-4 border-b border-white/10 py-1.5"
+                      className="flex justify-between gap-3 border-b border-porcelain/10 py-1.5"
                     >
-                      <span className="text-oat/80">{row.day}</span>
-                      <span className="text-oat/55">
+                      <span className="text-oat/80 shrink-0">{row.day}</span>
+                      <span className="text-oat/55 text-right">
                         {row.closed ? "Closed" : `${row.open} – ${row.close}`}
                       </span>
                     </li>
@@ -201,7 +201,7 @@ export default function VisitUs() {
             rel="noopener noreferrer"
             data-map-panel
             data-cursor="EXPLORE"
-            className="group relative block aspect-[5/4] overflow-hidden bg-surface-d"
+            className="group relative block aspect-[5/4] sm:aspect-[16/11] lg:aspect-[5/4] overflow-hidden bg-surface-d"
             aria-label="Open location in Google Maps"
             style={{ clipPath: "inset(0% 0% 0% 0%)" }}
           >
@@ -213,11 +213,11 @@ export default function VisitUs() {
               className="object-cover transition-transform duration-700 group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-smoke/70 via-transparent to-transparent" />
-            <div className="absolute bottom-5 left-5 right-5 flex items-center justify-between gap-3">
+            <div className="absolute bottom-4 left-4 right-4 sm:bottom-5 sm:left-5 sm:right-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-3">
               <span className="text-sm font-semibold text-porcelain">
                 Stud Road · VIC 3175
               </span>
-              <span className="inline-flex items-center gap-1 rounded-full bg-copper px-4 py-2 text-xs font-semibold uppercase tracking-[0.12em] text-white">
+              <span className="inline-flex items-center gap-1 rounded-full bg-copper px-3.5 py-2 text-[0.7rem] sm:text-xs font-semibold uppercase tracking-[0.12em] text-white">
                 Open map
                 <ArrowUpRight size={14} aria-hidden />
               </span>

@@ -103,12 +103,12 @@ export default function Footer() {
   };
 
   return (
-    <footer ref={rootRef} className="relative overflow-hidden bg-porcelain border-t border-smoke/10">
+    <footer ref={rootRef} className="relative overflow-hidden bg-surface-a border-t border-porcelain/10">
       <div className="section-shell !py-12 md:!py-20">
         <div className="section-inner">
           <p
             data-footer-mark
-            className="font-display text-display-xl leading-[0.9] text-smoke overflow-hidden"
+            className="font-display text-display-xl leading-[0.9] text-porcelain overflow-hidden"
           >
             JB CHARCOAL
             <br />
@@ -125,13 +125,13 @@ export default function Footer() {
               <p className="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-copper mb-3 md:mb-4">
                 Visit
               </p>
-              <p className="hidden sm:block text-[0.85rem] md:text-sm text-smoke/65 leading-relaxed mb-3">
+              <p className="hidden sm:block text-[0.85rem] md:text-sm text-porcelain/65 leading-relaxed mb-3">
                 Balkan-inspired charcoal grill and whole burek on Stud Road,
                 Dandenong.
               </p>
               <address
                 data-footer-link
-                className="not-italic text-[0.78rem] sm:text-[0.85rem] md:text-sm text-smoke/70 space-y-1"
+                className="not-italic text-[0.78rem] sm:text-[0.85rem] md:text-sm text-porcelain/70 space-y-1"
               >
                 <p>{restaurant.address.line1}</p>
                 <p>{restaurant.address.line2}</p>
@@ -155,7 +155,7 @@ export default function Footer() {
                   <li key={item.href} data-footer-link>
                     <a
                       href={item.href}
-                      className="group inline-flex items-center gap-1.5 text-[0.88rem] md:text-[1rem] text-smoke/80 hover:text-copper transition-colors"
+                      className="group inline-flex items-center gap-1.5 text-[0.88rem] md:text-[1rem] text-porcelain/80 hover:text-copper transition-colors"
                     >
                       {item.label}
                       <ArrowUpRight
@@ -179,7 +179,7 @@ export default function Footer() {
                   href={restaurant.links.uberEats}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group inline-flex items-center gap-1.5 text-[0.88rem] md:text-[1rem] text-smoke/80 hover:text-copper"
+                  className="group inline-flex items-center gap-1.5 text-[0.88rem] md:text-[1rem] text-porcelain/80 hover:text-copper"
                 >
                   Uber Eats
                   <ArrowUpRight
@@ -193,7 +193,7 @@ export default function Footer() {
                   href={restaurant.links.directions}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group inline-flex items-center gap-1.5 text-[0.88rem] md:text-[1rem] text-smoke/80 hover:text-copper"
+                  className="group inline-flex items-center gap-1.5 text-[0.88rem] md:text-[1rem] text-porcelain/80 hover:text-copper"
                 >
                   Directions
                   <ArrowUpRight
@@ -209,15 +209,15 @@ export default function Footer() {
               <p className="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-copper mb-3 md:mb-4">
                 Follow
               </p>
-              <ul className="flex flex-wrap gap-2" data-footer-link>
+              <ul className="flex flex-nowrap items-center gap-1.5 sm:gap-2" data-footer-link>
                 {restaurant.social.map((item) => (
-                  <li key={item.id}>
+                  <li key={item.id} className="shrink-0">
                     <a
                       href={item.href}
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={item.label}
-                      className="flex h-9 w-9 md:h-10 md:w-10 items-center justify-center rounded-full border border-smoke/15 text-smoke/70 transition-colors hover:border-copper hover:text-copper hover:bg-copper/5"
+                      className="flex h-8 w-8 sm:h-9 sm:w-9 md:h-10 md:w-10 items-center justify-center rounded-full border border-porcelain/15 text-porcelain/70 transition-colors hover:border-copper hover:text-copper hover:bg-copper/5"
                     >
                       <SocialIcon id={item.id} />
                     </a>
@@ -227,14 +227,14 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="mt-10 md:mt-12 flex flex-col gap-4 border-t border-smoke/10 pt-5 md:pt-6 sm:flex-row sm:items-center sm:justify-between">
-            <p className="text-[0.7rem] md:text-xs text-smoke/45">
+          <div className="mt-10 md:mt-12 flex flex-col gap-4 border-t border-porcelain/10 pt-5 md:pt-6 sm:flex-row sm:items-center sm:justify-between">
+            <p className="text-[0.7rem] md:text-xs text-porcelain/45">
               © 2026 {restaurant.name}. All rights reserved.
             </p>
             <button
               type="button"
               onClick={toTop}
-              className="inline-flex items-center gap-2 text-[0.7rem] md:text-xs font-semibold uppercase tracking-[0.16em] text-smoke/70 hover:text-copper transition-colors"
+              className="inline-flex items-center gap-2 text-[0.7rem] md:text-xs font-semibold uppercase tracking-[0.16em] text-porcelain/70 hover:text-copper transition-colors"
               aria-label="Back to top"
             >
               Back to top

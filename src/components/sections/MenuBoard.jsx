@@ -47,7 +47,8 @@ export default function MenuBoard() {
       const tab = tabRefs.current[filter];
       const ind = indicatorRef.current;
       if (!tab || !ind) return;
-      const parent = tab.parentElement;
+      const parent = ind.offsetParent || ind.parentElement;
+      if (!parent) return;
       const pr = parent.getBoundingClientRect();
       const tr = tab.getBoundingClientRect();
       gsap.to(ind, {
@@ -122,17 +123,17 @@ export default function MenuBoard() {
   };
 
   return (
-    <section id="menu" ref={rootRef} className="section-shell relative bg-porcelain overflow-hidden">
+    <section id="menu" ref={rootRef} className="section-shell relative bg-surface-a overflow-hidden">
       <div className="section-inner relative">
         <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between mb-8 md:mb-10">
           <div data-menu-head>
             <p className="eyebrow mb-3">The Living Menu</p>
-            <h2 className="font-display text-display-md text-smoke">
+            <h2 className="font-display text-display-md text-porcelain">
               THE GOOD
               <br />
               <span className="text-copper">STUFF.</span>
             </h2>
-            <p className="mt-3 md:mt-4 max-w-md text-lead text-smoke/65">
+            <p className="mt-3 md:mt-4 max-w-md text-lead text-porcelain/65">
               Indicative Uber Eats listing prices in AUD. In-store prices may differ.
             </p>
           </div>
@@ -149,48 +150,49 @@ export default function MenuBoard() {
         </div>
 
         <div
-          className="relative mb-8 flex gap-1 overflow-x-auto pb-3 border-b border-smoke/10"
+          className="relative mb-6 sm:mb-8 -mx-[var(--section-pad-x)] px-[var(--section-pad-x)] border-b border-porcelain/10"
           role="tablist"
           aria-label="Menu categories"
         >
-          <span
-            ref={indicatorRef}
-            className="absolute bottom-0 left-0 h-[2px] w-16 bg-copper"
-            aria-hidden
-          />
-          {menuCategories.map((cat) => {
-            const selected = filter === cat.id;
-            return (
-              <button
-                key={cat.id}
-                type="button"
-                role="tab"
-                aria-selected={selected}
-                ref={(el) => {
-                  tabRefs.current[cat.id] = el;
-                }}
-                onClick={() => changeFilter(cat.id)}
-                className={`shrink-0 px-4 py-3 text-sm font-semibold uppercase tracking-[0.12em] min-h-11 transition-colors ${
-                  selected ? "text-smoke" : "text-smoke/45 hover:text-smoke"
-                }`}
-              >
-                {cat.label}
-              </button>
-            );
-          })}
+          <div className="relative flex gap-1 overflow-x-auto pb-3 scrollbar-none">
+            <span
+              ref={indicatorRef}
+              className="absolute bottom-0 left-0 h-[2px] w-16 bg-copper"
+              aria-hidden
+            />
+            {menuCategories.map((cat) => {
+              const selected = filter === cat.id;
+              return (
+                <button
+                  key={cat.id}
+                  type="button"
+                  role="tab"
+                  aria-selected={selected}
+                  ref={(el) => {
+                    tabRefs.current[cat.id] = el;
+                  }}
+                  onClick={() => changeFilter(cat.id)}
+                  className={`shrink-0 px-3 sm:px-4 py-3 text-[0.75rem] sm:text-sm font-semibold uppercase tracking-[0.12em] min-h-11 whitespace-nowrap transition-colors ${
+                    selected ? "text-porcelain" : "text-porcelain/45 hover:text-porcelain"
+                  }`}
+                >
+                  {cat.label}
+                </button>
+              );
+            })}
+          </div>
         </div>
 
-        <ul ref={listRef} className="relative divide-y divide-smoke/10">
+        <ul ref={listRef} className="relative divide-y divide-porcelain/10">
           {filtered.map((item) => (
             <li
               key={item.id}
               data-menu-item
-              className="group relative flex gap-4 md:gap-6 py-5 md:py-6"
+              className="group relative flex gap-3 sm:gap-4 md:gap-6 py-4 sm:py-5 md:py-6"
               onMouseMove={(e) => onItemMove(e, item)}
               onMouseLeave={onItemLeave}
             >
-              {/* Inline thumbs on touch / small screens; desktop uses floating preview */}
-              <div className="relative h-16 w-16 shrink-0 overflow-hidden sm:h-[4.5rem] sm:w-[4.5rem] lg:hidden">
+              <div className="relative h-14 w-14 shrink-0 overflow-hidden sm:h-16 sm:w-16 md:h-[4.5rem] md:w-[4.5rem] lg:hidden">
                 {item.category !== "drinks" ? (
                   <Image
                     src={item.image}
@@ -201,8 +203,8 @@ export default function MenuBoard() {
                     aria-hidden
                   />
                 ) : (
-                  <div className="flex h-full w-full items-center justify-center bg-oat/40">
-                    <span className="text-[0.6rem] font-semibold uppercase tracking-[0.16em] text-smoke/45">
+                  <div className="flex h-full w-full items-center justify-center bg-surface-b">
+                    <span className="text-[0.55rem] font-semibold uppercase tracking-[0.16em] text-porcelain/45">
                       Drink
                     </span>
                   </div>
@@ -210,18 +212,18 @@ export default function MenuBoard() {
               </div>
 
               <div className="flex-1 min-w-0">
-                <div className="flex items-baseline justify-between gap-3">
-                  <h3 className="font-display text-display-sm text-smoke leading-none transition-transform duration-300 group-hover:translate-x-1">
+                <div className="flex items-start sm:items-baseline justify-between gap-3">
+                  <h3 className="font-display text-[1.15rem] sm:text-display-sm text-porcelain leading-tight transition-transform duration-300 group-hover:translate-x-1">
                     {item.name}
                   </h3>
                   {showPrices ? (
-                    <span className="shrink-0 text-sm font-semibold text-copper tabular-nums">
+                    <span className="shrink-0 text-sm font-semibold text-copper tabular-nums pt-0.5">
                       ${item.price}
                     </span>
                   ) : null}
                 </div>
-                <div className="my-2.5 h-px w-full border-t border-dashed border-smoke/15" />
-                <p className="text-sm leading-relaxed text-smoke/65 max-w-xl">
+                <div className="my-2 sm:my-2.5 h-px w-full border-t border-dashed border-porcelain/15" />
+                <p className="text-[0.85rem] sm:text-sm leading-relaxed text-porcelain/65 max-w-xl">
                   {item.description}
                 </p>
               </div>
@@ -232,7 +234,7 @@ export default function MenuBoard() {
         {/* Desktop floating preview */}
         <div
           ref={floatRef}
-          className="pointer-events-none absolute left-0 top-0 z-20 hidden lg:block h-40 w-32 overflow-hidden border-[3px] border-white shadow-[0_20px_50px_rgba(36,36,36,0.2)] opacity-0"
+          className="pointer-events-none absolute left-0 top-0 z-20 hidden lg:block h-40 w-32 overflow-hidden border-[3px] border-porcelain/70 shadow-[0_20px_50px_rgba(36,36,36,0.2)] opacity-0"
           aria-hidden
         >
           {preview && preview.category !== "drinks" ? (

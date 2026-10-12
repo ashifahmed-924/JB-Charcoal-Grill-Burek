@@ -100,11 +100,11 @@ export default function OrderCTA() {
     <section ref={rootRef} className="relative overflow-hidden">
       <div data-cta-bg className="absolute inset-0 bg-smoke" />
 
-      <div className="section-shell relative z-10 !py-16 md:!py-20">
-        <div className="section-inner relative min-h-[22rem] md:min-h-[26rem] flex flex-col justify-center">
+      <div className="section-shell relative z-10 !py-12 sm:!py-16 md:!py-20">
+        <div className="section-inner relative min-h-0 md:min-h-[26rem] flex flex-col justify-center">
           <div
             data-cta-photo
-            className="pointer-events-none absolute right-[-5%] top-1/2 hidden md:block w-[48%] max-w-[28rem] aspect-square -translate-y-1/2"
+            className="pointer-events-none absolute right-[-5%] top-1/2 hidden lg:block w-[48%] max-w-[28rem] aspect-square -translate-y-1/2"
             style={{ clipPath: "circle(75% at 70% 45%)" }}
           >
             <Image
@@ -118,7 +118,7 @@ export default function OrderCTA() {
 
           <div
             ref={ringRef}
-            className="pointer-events-none absolute right-[8%] top-[12%] hidden md:flex h-28 w-28 items-center justify-center rounded-full border border-copper/40"
+            className="pointer-events-none absolute right-[8%] top-[12%] hidden lg:flex h-28 w-28 items-center justify-center rounded-full border border-copper/40"
             aria-hidden
           >
             <span className="font-display text-copper text-sm tracking-[0.2em]">
@@ -139,7 +139,7 @@ export default function OrderCTA() {
               STARTS HERE.
             </h2>
 
-            <div data-cta-actions className="flex flex-wrap gap-3">
+            <div data-cta-actions className="flex flex-col sm:flex-row flex-wrap gap-3">
               <MagneticButton
                 href={restaurant.links.uberEats}
                 external
@@ -157,8 +157,8 @@ export default function OrderCTA() {
             </div>
           </div>
 
-          {/* Mobile image */}
-          <div className="relative mt-10 aspect-[16/10] overflow-hidden md:hidden rounded-sm">
+          {/* Phone + tablet image */}
+          <div className="relative mt-8 sm:mt-10 aspect-[16/10] overflow-hidden lg:hidden">
             <Image
               src="/images/cta-meal.webp"
               alt="Grilled meal — representative imagery"

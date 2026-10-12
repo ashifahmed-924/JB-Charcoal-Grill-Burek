@@ -12,17 +12,13 @@ export default function SectionHeading({
   return (
     <div className={`flex flex-col gap-4 max-w-2xl ${alignClass} ${className}`}>
       {eyebrow ? <p className="eyebrow">{eyebrow}</p> : null}
-      <h2
-        className={`font-display text-display-md ${
-          light ? "text-porcelain" : "text-smoke"
-        }`}
-      >
+      <h2 className="font-display text-display-md text-porcelain">
         {title}
       </h2>
       {description ? (
         <p
           className={`text-lead leading-relaxed max-w-xl ${
-            light ? "text-oat/85" : "text-smoke/70"
+            light ? "text-oat/85" : "text-porcelain/70"
           }`}
         >
           {description}

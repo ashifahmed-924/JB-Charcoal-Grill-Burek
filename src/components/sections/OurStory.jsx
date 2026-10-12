@@ -121,7 +121,7 @@ export default function OurStory() {
   ];
 
   return (
-    <section id="story" ref={rootRef} className="relative overflow-hidden section-shell bg-oat/30">
+    <section id="story" ref={rootRef} className="relative overflow-hidden section-shell bg-surface-b">
       <div
         data-story-photo
         className="pointer-events-none absolute right-[-8%] top-[10%] hidden lg:block w-[42%] aspect-[3/4] opacity-0"
@@ -137,22 +137,22 @@ export default function OurStory() {
       </div>
 
       <div className="section-inner relative z-10 max-w-4xl">
-        <p className="eyebrow mb-6">The JB Story</p>
+        <p className="eyebrow mb-4 sm:mb-6">The JB Story</p>
 
         <h2
           data-story-headline
-          className="font-display text-display-xl leading-[0.92] text-smoke overflow-hidden"
+          className="font-display text-display-xl leading-[0.92] text-porcelain overflow-hidden break-words"
         >
           GOOD FOOD. BOLD ROOTS.
         </h2>
 
-        <div className="mt-6 md:mt-8 mb-8 md:mb-10 max-w-md">
-          <AnimatedLine className="mb-6 md:mb-8" />
+        <div className="mt-5 sm:mt-6 md:mt-8 mb-6 sm:mb-8 md:mb-10 max-w-md">
+          <AnimatedLine className="mb-5 sm:mb-6 md:mb-8" />
         </div>
 
         <p
           data-story-body
-          className="font-display text-display-sm leading-[1.3] text-smoke/80 max-w-3xl"
+          className="font-display text-[clamp(1.05rem,0.95rem+0.9vw,1.85rem)] leading-[1.35] text-porcelain/80 max-w-3xl"
         >
           {bodyWords.map((word, i) => (
             <span
@@ -169,7 +169,7 @@ export default function OurStory() {
           ))}
         </p>
 
-        <p className="mt-6 md:mt-8 max-w-xl text-lead leading-relaxed text-smoke/65">
+        <p className="mt-6 md:mt-8 max-w-xl text-lead leading-relaxed text-porcelain/65">
           From cevapi and pljeskavica burgers to beef, cheese, spinach, sour
           cherry and apple burek, the menu stays focused on honest, hearty
           favourites.

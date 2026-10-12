@@ -91,7 +91,7 @@ const jsonLd = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en-AU" className={`${bricolage.variable} ${dmSans.variable}`}>
-      <body className="min-h-screen bg-surface-a text-smoke antialiased">
+      <body className="min-h-screen bg-surface-a text-porcelain antialiased">
         <a href="#main" className="skip-link">
           Skip to content
         </a>

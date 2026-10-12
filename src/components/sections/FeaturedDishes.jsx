@@ -12,12 +12,12 @@ import { isFinePointer } from "@/lib/animations";
 registerGsapPlugins();
 
 const layouts = [
-  "md:col-start-1 md:row-start-1 md:rotate-[-3deg] md:translate-y-4",
-  "md:col-start-2 md:row-start-1 md:rotate-[2deg] md:-translate-y-2",
-  "md:col-start-3 md:row-start-1 md:rotate-[-1.5deg] md:translate-y-8",
-  "md:col-start-1 md:row-start-2 md:rotate-[2.5deg] md:-translate-y-2",
-  "md:col-start-2 md:row-start-2 md:rotate-[-2deg] md:translate-y-6",
-  "md:col-start-3 md:row-start-2 md:rotate-[1deg] md:-translate-y-4",
+  "lg:col-start-1 lg:row-start-1 lg:rotate-[-3deg] lg:translate-y-4",
+  "lg:col-start-2 lg:row-start-1 lg:rotate-[2deg] lg:-translate-y-2",
+  "lg:col-start-3 lg:row-start-1 lg:rotate-[-1.5deg] lg:translate-y-8",
+  "lg:col-start-1 lg:row-start-2 lg:rotate-[2.5deg] lg:-translate-y-2",
+  "lg:col-start-2 lg:row-start-2 lg:rotate-[-2deg] lg:translate-y-6",
+  "lg:col-start-3 lg:row-start-2 lg:rotate-[1deg] lg:-translate-y-4",
 ];
 
 export default function FeaturedDishes() {
@@ -34,7 +34,7 @@ export default function FeaturedDishes() {
 
       const mm = gsap.matchMedia();
 
-      mm.add("(min-width: 768px)", () => {
+      mm.add("(min-width: 1024px)", () => {
         const panels = gsap.utils.toArray("[data-dish-panel]");
         const dirs = [
           { x: -80, y: 40 },
@@ -92,25 +92,25 @@ export default function FeaturedDishes() {
       <div className="section-inner">
         <div className="mb-10 md:mb-14 max-w-xl">
           <p className="eyebrow mb-3">Signature plates</p>
-          <h2 className="font-display text-display-md text-smoke">
+          <h2 className="font-display text-display-md text-porcelain">
             FLOATING
             <br />
             FOOD PANELS.
           </h2>
-          <p className="mt-3 md:mt-4 text-lead text-smoke/65 leading-relaxed">
+          <p className="mt-3 md:mt-4 text-lead text-porcelain/65 leading-relaxed">
             Favourites from the grill and the burek tray — indicative Uber Eats
             prices in AUD.
           </p>
         </div>
 
         {/* Desktop collage */}
-        <div className="hidden md:grid md:grid-cols-3 md:gap-6 lg:gap-8 perspective-[1200px]">
+        <div className="hidden lg:grid lg:grid-cols-3 lg:gap-8 perspective-[1200px]">
           {dishes.map((item, index) => (
             <article
               key={item.id}
               data-dish-panel
               data-cursor="VIEW"
-              className={`group relative bg-white border border-smoke/10 shadow-[0_18px_40px_rgba(36,36,36,0.1)] overflow-hidden will-change-transform ${layouts[index]}`}
+              className={`group relative bg-surface-card border border-porcelain/10 shadow-[0_18px_40px_rgba(36,36,36,0.1)] overflow-hidden will-change-transform ${layouts[index]}`}
             >
               <div className="relative aspect-[4/5] overflow-hidden">
                 <Image
@@ -123,7 +123,7 @@ export default function FeaturedDishes() {
               </div>
               <div className="p-4 flex items-baseline justify-between gap-3">
                 <div>
-                  <h3 className="font-display text-[1.2rem] md:text-[1.35rem] leading-none text-smoke">
+                  <h3 className="font-display text-[1.35rem] leading-none text-porcelain">
                     {item.name}
                   </h3>
                   <p className="mt-1 text-[0.68rem] uppercase tracking-[0.14em] text-petrol">
@@ -145,10 +145,10 @@ export default function FeaturedDishes() {
           ))}
         </div>
 
-        {/* Mobile swipe rail */}
+        {/* Phone + tablet swipe rail */}
         <div
           ref={trackRef}
-          className="md:hidden flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4 -mx-[var(--section-pad-x)] px-[var(--section-pad-x)] scrollbar-none"
+          className="lg:hidden flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4 -mx-[var(--section-pad-x)] px-[var(--section-pad-x)] scrollbar-none"
           tabIndex={0}
           role="list"
           aria-label="Featured dishes"
@@ -157,23 +157,39 @@ export default function FeaturedDishes() {
             <article
               key={item.id}
               role="listitem"
-              className="snap-center shrink-0 w-[78vw] max-w-[20rem] bg-white border border-smoke/10 overflow-hidden"
+              className="relative snap-center shrink-0 w-[min(78vw,19rem)] sm:w-[min(42vw,18rem)] bg-surface-card border border-porcelain/10 overflow-hidden"
             >
               <div className="relative aspect-[4/5]">
                 <Image
                   src={item.image}
                   alt={`${item.name} — representative image`}
                   fill
-                  sizes="78vw"
+                  sizes="(max-width: 640px) 78vw, 42vw"
                   className="object-cover"
                 />
               </div>
-              <div className="p-4 flex items-baseline justify-between">
-                <h3 className="font-display text-xl text-smoke">{item.name}</h3>
+              <div className="p-4 flex items-baseline justify-between gap-3">
+                <div className="min-w-0">
+                  <h3 className="font-display text-lg sm:text-xl text-porcelain leading-tight">
+                    {item.name}
+                  </h3>
+                  <p className="mt-1 text-[0.65rem] uppercase tracking-[0.14em] text-petrol">
+                    {item.tag}
+                  </p>
+                </div>
                 {showPrices ? (
-                  <span className="text-sm font-semibold text-copper">${item.price}</span>
+                  <span className="shrink-0 text-sm font-semibold text-copper">
+                    ${item.price}
+                  </span>
                 ) : null}
               </div>
+              <a
+                href={restaurant.links.uberEats}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="absolute inset-0"
+                aria-label={`Order ${item.name} on Uber Eats`}
+              />
             </article>
           ))}
         </div>

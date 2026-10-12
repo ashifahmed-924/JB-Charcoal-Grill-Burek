@@ -29,7 +29,7 @@ export default function Lightbox({ images, index, onClose, onPrev, onNext }) {
 
   return (
     <div
-      className="fixed inset-0 z-[80] flex items-center justify-center bg-smoke/92 p-4"
+      className="fixed inset-0 z-[80] flex items-center justify-center bg-smoke/92 p-3 sm:p-4 pt-16"
       role="dialog"
       aria-modal="true"
       aria-label="Image lightbox"
@@ -37,7 +37,7 @@ export default function Lightbox({ images, index, onClose, onPrev, onNext }) {
     >
       <button
         type="button"
-        className="absolute top-4 right-4 z-10 flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20"
+        className="absolute top-3 right-3 sm:top-4 sm:right-4 z-10 flex h-11 w-11 items-center justify-center rounded-full bg-porcelain/10 text-porcelain hover:bg-porcelain/20"
         onClick={onClose}
         aria-label="Close lightbox"
       >
@@ -46,7 +46,7 @@ export default function Lightbox({ images, index, onClose, onPrev, onNext }) {
 
       <button
         type="button"
-        className="absolute left-3 md:left-6 z-10 flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20"
+        className="absolute left-2 sm:left-3 md:left-6 z-10 flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-full bg-porcelain/10 text-porcelain hover:bg-porcelain/20"
         onClick={(e) => {
           e.stopPropagation();
           onPrev();
@@ -58,7 +58,7 @@ export default function Lightbox({ images, index, onClose, onPrev, onNext }) {
 
       <button
         type="button"
-        className="absolute right-3 md:right-6 z-10 flex h-11 w-11 items-center justify-center rounded-full bg-white/10 text-white hover:bg-white/20"
+        className="absolute right-2 sm:right-3 md:right-6 z-10 flex h-10 w-10 sm:h-11 sm:w-11 items-center justify-center rounded-full bg-porcelain/10 text-porcelain hover:bg-porcelain/20"
         onClick={(e) => {
           e.stopPropagation();
           onNext();
@@ -70,7 +70,7 @@ export default function Lightbox({ images, index, onClose, onPrev, onNext }) {
 
       <div
         data-lightbox-image
-        className="relative w-full max-w-5xl aspect-[4/3] md:aspect-[16/10]"
+        className="relative w-full max-w-5xl h-[min(70svh,28rem)] sm:h-auto sm:aspect-[4/3] md:aspect-[16/10]"
         onClick={(e) => e.stopPropagation()}
       >
         <Image
@@ -82,7 +82,7 @@ export default function Lightbox({ images, index, onClose, onPrev, onNext }) {
           priority
         />
         {active.caption ? (
-          <p className="absolute bottom-0 inset-x-0 text-center text-white/90 text-sm py-3 bg-gradient-to-t from-black/50 to-transparent">
+          <p className="absolute bottom-0 inset-x-0 text-center text-porcelain/90 text-xs sm:text-sm py-2.5 sm:py-3 px-10 sm:px-4 bg-gradient-to-t from-black/50 to-transparent">
             {active.caption}
           </p>
         ) : null}

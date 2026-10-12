@@ -20,7 +20,7 @@ const galleryImages = [
     src: "/images/gallery-1.webp",
     alt: "Dining atmosphere — representative imagery",
     caption: "A Taste of Tradition",
-    w: "w-[18rem] md:w-[22rem]",
+    w: "w-[min(72vw,18rem)] md:w-[22rem]",
     aspect: "aspect-[3/4]",
     rotate: "-rotate-3",
   },
@@ -28,7 +28,7 @@ const galleryImages = [
     src: "/images/gallery-2.webp",
     alt: "Grilled steak close-up — representative imagery",
     caption: "The Grill",
-    w: "w-[20rem] md:w-[26rem]",
+    w: "w-[min(78vw,20rem)] md:w-[26rem]",
     aspect: "aspect-[5/4]",
     rotate: "rotate-2",
   },
@@ -36,7 +36,7 @@ const galleryImages = [
     src: "/images/gallery-3.webp",
     alt: "Grilled meat platter — representative imagery",
     caption: "Platter",
-    w: "w-[16rem] md:w-[20rem]",
+    w: "w-[min(68vw,16rem)] md:w-[20rem]",
     aspect: "aspect-square",
     rotate: "rotate-[-1.5deg]",
   },
@@ -44,7 +44,7 @@ const galleryImages = [
     src: "/images/gallery-4.webp",
     alt: "Grilled sausages — representative imagery",
     caption: "From the Fire",
-    w: "w-[18rem] md:w-[24rem]",
+    w: "w-[min(72vw,18rem)] md:w-[24rem]",
     aspect: "aspect-[4/5]",
     rotate: "rotate-3",
   },
@@ -52,7 +52,7 @@ const galleryImages = [
     src: "/images/filo-pastry.webp",
     alt: "Layered pastry — representative imagery",
     caption: "Golden Layers",
-    w: "w-[17rem] md:w-[21rem]",
+    w: "w-[min(70vw,17rem)] md:w-[21rem]",
     aspect: "aspect-[3/4]",
     rotate: "-rotate-2",
   },
@@ -60,7 +60,7 @@ const galleryImages = [
     src: "/images/gallery-6.webp",
     alt: "Rustic bread — representative imagery",
     caption: "Bread & Share",
-    w: "w-[19rem] md:w-[25rem]",
+    w: "w-[min(76vw,19rem)] md:w-[25rem]",
     aspect: "aspect-[5/4]",
     rotate: "rotate-1",
   },
@@ -68,7 +68,7 @@ const galleryImages = [
     src: "/images/gallery-5.webp",
     alt: "Food close-up — representative imagery",
     caption: "Close Up",
-    w: "w-[16rem] md:w-[20rem]",
+    w: "w-[min(68vw,16rem)] md:w-[20rem]",
     aspect: "aspect-square",
     rotate: "rotate-[-2.5deg]",
   },
@@ -77,6 +77,7 @@ const galleryImages = [
 export default function FoodGallery() {
   const rootRef = useRef(null);
   const trackRef = useRef(null);
+  const mobileTrackRef = useRef(null);
   const [lightboxIndex, setLightboxIndex] = useState(null);
   const [activeIndex, setActiveIndex] = useState(0);
   const reduced = useReducedMotion();
@@ -157,6 +158,15 @@ export default function FoodGallery() {
   );
 
   const nudge = (dir) => {
+    const mobile = mobileTrackRef.current;
+    if (mobile && window.matchMedia("(max-width: 767px)").matches) {
+      mobile.scrollBy({
+        left: dir * Math.min(320, window.innerWidth * 0.7) * -1,
+        behavior: "smooth",
+      });
+      return;
+    }
+
     const track = trackRef.current;
     if (!track) return;
     const amount = dir * Math.min(360, window.innerWidth * 0.55);
@@ -196,21 +206,21 @@ export default function FoodGallery() {
   }, []);
 
   return (
-    <section id="gallery" ref={rootRef} className="section-shell bg-oat/25 overflow-hidden">
-      <div className="section-inner mb-8 md:mb-10 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
-        <div>
+    <section id="gallery" ref={rootRef} className="section-shell bg-surface-b overflow-hidden">
+      <div className="section-inner mb-8 md:mb-10 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+        <div className="min-w-0">
           <p className="eyebrow mb-3">Food exhibition</p>
-          <h2 className="font-display text-display-md text-smoke">
+          <h2 className="font-display text-display-md text-porcelain">
             THE MOVING
             <br />
             <span className="text-copper">FOOD GALLERY.</span>
           </h2>
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 shrink-0">
           <button
             type="button"
             onClick={() => nudge(1)}
-            className="flex h-11 w-11 items-center justify-center rounded-full border border-smoke/20 text-smoke hover:bg-smoke hover:text-porcelain transition-colors"
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-porcelain/20 text-porcelain hover:bg-porcelain/10 transition-colors"
             aria-label="Previous gallery images"
           >
             <ChevronLeft size={18} />
@@ -218,7 +228,7 @@ export default function FoodGallery() {
           <button
             type="button"
             onClick={() => nudge(-1)}
-            className="flex h-11 w-11 items-center justify-center rounded-full border border-smoke/20 text-smoke hover:bg-smoke hover:text-porcelain transition-colors"
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-porcelain/20 text-porcelain hover:bg-porcelain/10 transition-colors"
             aria-label="Next gallery images"
           >
             <ChevronRight size={18} />
@@ -239,7 +249,7 @@ export default function FoodGallery() {
               type="button"
               data-gallery-card
               onClick={() => open(index)}
-              className={`group relative shrink-0 overflow-hidden border-[3px] border-white shadow-[0_18px_40px_rgba(36,36,36,0.14)] text-left transition-[filter,transform] duration-400 ${image.w} ${image.aspect} ${image.rotate} ${
+              className={`group relative shrink-0 overflow-hidden border-[3px] border-porcelain/70 shadow-[0_18px_40px_rgba(36,36,36,0.14)] text-left transition-[filter,transform] duration-400 ${image.w} ${image.aspect} ${image.rotate} ${
                 activeIndex === index ? "z-10 brightness-100" : "brightness-[0.92]"
               }`}
               aria-label={`Open image: ${image.caption || image.alt}`}
@@ -263,7 +273,8 @@ export default function FoodGallery() {
 
       {/* Mobile snap gallery */}
       <div
-        className="md:hidden flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4 px-[var(--section-pad-x)] -mx-[var(--section-pad-x)]"
+        ref={mobileTrackRef}
+        className="md:hidden flex gap-4 overflow-x-auto snap-x snap-mandatory pb-4 px-[var(--section-pad-x)] -mx-[var(--section-pad-x)] scrollbar-none"
         tabIndex={0}
         aria-label="Gallery"
       >
@@ -272,7 +283,7 @@ export default function FoodGallery() {
             key={image.src}
             type="button"
             onClick={() => open(index)}
-            className={`snap-center shrink-0 relative overflow-hidden border-[3px] border-white shadow-lg ${image.w} ${image.aspect}`}
+            className={`snap-center shrink-0 relative overflow-hidden border-[3px] border-porcelain/70 shadow-lg ${image.w} ${image.aspect}`}
             aria-label={`Open image: ${image.caption || image.alt}`}
           >
             <Image
@@ -283,7 +294,7 @@ export default function FoodGallery() {
               className="object-cover"
             />
             {image.caption ? (
-              <span className="absolute bottom-3 left-3 text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-porcelain">
+              <span className="absolute bottom-3 left-3 right-3 text-[0.65rem] font-semibold uppercase tracking-[0.14em] text-porcelain">
                 {image.caption}
               </span>
             ) : null}

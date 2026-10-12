@@ -81,24 +81,24 @@ export default function Reviews() {
   const next = () => bringToFront(index === reviews.length - 1 ? 0 : index + 1);
 
   return (
-    <section ref={rootRef} className="section-shell bg-porcelain overflow-hidden">
+    <section ref={rootRef} className="section-shell bg-surface-a overflow-hidden">
       <div className="section-inner">
         <div className="mb-8 md:mb-12 max-w-2xl">
           <p className="eyebrow mb-3">Around the table</p>
-          <h2 className="font-display text-display-md text-smoke">
+          <h2 className="font-display text-display-md text-porcelain">
             GRAVITY
             <br />
             <span className="text-copper">CARDS.</span>
           </h2>
-          <p className="mt-3 md:mt-4 text-[0.7rem] md:text-xs text-smoke/50">{reviewsDisclaimer}</p>
+          <p className="mt-3 md:mt-4 text-[0.7rem] md:text-xs text-porcelain/50">{reviewsDisclaimer}</p>
         </div>
 
-        <div className="grid gap-8 md:gap-10 lg:grid-cols-[0.85fr_1.15fr] items-center">
-          <div>
-            <p className="font-display text-[clamp(2.75rem,10vw,8rem)] leading-none text-copper/25 select-none" aria-hidden>
+        <div className="grid gap-8 md:gap-10 lg:grid-cols-[0.85fr_1.15fr] items-start lg:items-center">
+          <div className="max-w-md">
+            <p className="font-display text-[clamp(2.5rem,12vw,8rem)] leading-none text-copper/25 select-none" aria-hidden>
               “
             </p>
-            <p className="mt-2 text-[0.8rem] md:text-sm text-smoke/60 max-w-xs leading-relaxed">
+            <p className="mt-2 text-[0.8rem] md:text-sm text-porcelain/60 max-w-xs leading-relaxed">
               Sample layout comments only. For live guest feedback, see public
               listings.
             </p>
@@ -112,10 +112,10 @@ export default function Reviews() {
             </a>
           </div>
 
-          <div className="relative">
+          <div className="relative w-full min-w-0">
             <div
               ref={stackRef}
-              className="relative mx-auto h-[22rem] sm:h-[24rem] max-w-lg"
+              className="relative mx-auto min-h-[20rem] sm:min-h-[22rem] max-w-lg pb-5 sm:pb-8 md:pb-10"
             >
               {reviews.map((review, i) => {
                 const offset = (i - index + reviews.length) % reviews.length;
@@ -124,21 +124,24 @@ export default function Reviews() {
                   <article
                     key={review.id}
                     data-gravity-card
-                    className="absolute inset-x-0 top-0 rounded-[1.25rem] border border-smoke/10 bg-white p-6 sm:p-8 shadow-[0_24px_60px_rgba(36,36,36,0.12)]"
+                    className={`rounded-[1.25rem] border border-porcelain/10 bg-surface-card p-5 sm:p-6 md:p-8 shadow-[0_24px_60px_rgba(36,36,36,0.12)] ${
+                      isFront ? "relative" : "absolute inset-x-0 top-0"
+                    }`}
                     style={{
                       zIndex: isFront ? 10 : 5 - offset,
                       transform: isFront
                         ? "none"
                         : `translateY(${12 + offset * 10}px) rotate(${offset % 2 === 0 ? -2.5 : 2.5}deg) scale(${1 - offset * 0.03})`,
+                      visibility: offset > 2 ? "hidden" : "visible",
                     }}
                     aria-hidden={!isFront}
                   >
                     <blockquote>
-                      <p className="font-display text-display-sm leading-[1.25] text-smoke">
+                      <p className="font-display text-[clamp(1.05rem,0.95rem+0.8vw,1.55rem)] leading-[1.3] text-porcelain">
                         “{review.quote}”
                       </p>
-                      <footer className="mt-6 text-sm text-smoke/55">
-                        <cite className="not-italic font-semibold text-smoke">
+                      <footer className="mt-5 sm:mt-6 text-sm text-porcelain/55">
+                        <cite className="not-italic font-semibold text-porcelain">
                           {review.name}
                         </cite>
                         <span className="mx-2">·</span>
@@ -150,15 +153,15 @@ export default function Reviews() {
               })}
             </div>
 
-            <div className="mt-8 flex items-center justify-between max-w-lg mx-auto">
-              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-smoke/45">
+            <div className="mt-3 sm:mt-6 md:mt-8 flex items-center justify-between max-w-lg mx-auto">
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-porcelain/45">
                 {index + 1} / {reviews.length}
               </p>
               <div className="flex gap-2">
                 <button
                   type="button"
                   onClick={prev}
-                  className="flex h-11 w-11 items-center justify-center rounded-full border border-smoke/15 text-smoke hover:bg-oat/50"
+                  className="flex h-11 w-11 items-center justify-center rounded-full border border-porcelain/15 text-porcelain hover:bg-porcelain/10"
                   aria-label="Previous review"
                 >
                   <ChevronLeft size={18} />
@@ -166,7 +169,7 @@ export default function Reviews() {
                 <button
                   type="button"
                   onClick={next}
-                  className="flex h-11 w-11 items-center justify-center rounded-full border border-smoke/15 text-smoke hover:bg-oat/50"
+                  className="flex h-11 w-11 items-center justify-center rounded-full border border-porcelain/15 text-porcelain hover:bg-porcelain/10"
                   aria-label="Next review"
                 >
                   <ChevronRight size={18} />

@@ -112,7 +112,7 @@ export default function FireExperience() {
 
   return (
     <section ref={rootRef} className="relative bg-smoke text-porcelain overflow-hidden">
-      <div ref={pinRef} className="relative min-h-[min(100svh,48rem)] md:min-h-[100svh]">
+      <div ref={pinRef} className="relative min-h-[22rem] sm:min-h-[26rem] md:min-h-[32rem] lg:min-h-[100svh]">
         <div
           data-fire-main
           className="absolute inset-0"
@@ -123,7 +123,7 @@ export default function FireExperience() {
             alt="Charcoal grill flames — representative imagery"
             fill
             sizes="100vw"
-            className="object-cover opacity-55"
+            className="object-cover object-center opacity-55"
             priority={false}
           />
           <div className="absolute inset-0 bg-gradient-to-b from-smoke/40 via-smoke/55 to-smoke/85" />
@@ -131,7 +131,7 @@ export default function FireExperience() {
 
         <svg
           data-fire-svg
-          className="pointer-events-none absolute inset-x-[8%] top-[28%] z-10 h-24 w-[84%] text-copper"
+          className="pointer-events-none absolute inset-x-[8%] top-[22%] sm:top-[26%] z-10 h-16 sm:h-20 md:h-24 w-[84%] text-copper"
           viewBox="0 0 800 80"
           fill="none"
           aria-hidden
@@ -145,19 +145,21 @@ export default function FireExperience() {
           />
         </svg>
 
-        <div className="relative z-20 flex h-full min-h-[min(100svh,48rem)] md:min-h-[100svh] flex-col justify-end section-shell !pb-16 md:!pb-24">
-          <div className="section-inner relative">
-            <p className="eyebrow mb-4 !text-copper">Straight from the fire</p>
-            <h2
-              data-fire-headline
-              className="font-display text-display-xl leading-[0.92] max-w-[10ch]"
-            >
-              THE FIRE DOES THE TALKING.
-            </h2>
+        <div className="relative z-20 flex h-full min-h-[22rem] sm:min-h-[26rem] md:min-h-[32rem] lg:min-h-[100svh] flex-col justify-end section-shell !pb-10 sm:!pb-12 md:!pb-16 lg:!pb-24">
+          <div className="section-inner relative flex flex-col gap-6 sm:gap-8 md:block">
+            <div className="md:pr-[15rem] lg:pr-[16rem]">
+              <p className="eyebrow mb-3 sm:mb-4 !text-copper">Straight from the fire</p>
+              <h2
+                data-fire-headline
+                className="font-display text-display-xl leading-[0.92] max-w-[12ch] sm:max-w-[10ch]"
+              >
+                THE FIRE DOES THE TALKING.
+              </h2>
+            </div>
 
             <div
               data-fire-overlay
-              className="absolute right-0 bottom-[-2rem] md:bottom-8 w-[9rem] md:w-[14rem] aspect-[3/4] overflow-hidden border-[3px] border-porcelain/80 shadow-[0_20px_50px_rgba(0,0,0,0.4)] rotate-[-3deg]"
+              className="relative w-[7rem] sm:w-[8.5rem] md:absolute md:right-0 md:bottom-8 md:w-[12rem] lg:w-[14rem] aspect-[3/4] overflow-hidden border-[3px] border-porcelain/80 shadow-[0_20px_50px_rgba(0,0,0,0.4)] rotate-[-3deg] self-end md:self-auto"
             >
               <Image
                 src="/images/food-closeup.webp"

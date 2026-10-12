@@ -48,7 +48,8 @@ export default function BurekFeature() {
       const tab = tabRefs.current[activeId];
       const line = underlineRef.current;
       if (!tab || !line) return;
-      const parent = tab.parentElement;
+      const parent = line.offsetParent || line.parentElement;
+      if (!parent) return;
       const pr = parent.getBoundingClientRect();
       const tr = tab.getBoundingClientRect();
       gsap.to(line, {
@@ -69,6 +70,31 @@ export default function BurekFeature() {
     }
 
     const panel = panelRef.current;
+    const isMobile = window.matchMedia("(max-width: 1023px)").matches;
+
+    // Mobile: simple fade — clipPath wipe can leave the image half-cropped
+    if (isMobile) {
+      gsap
+        .timeline()
+        .to([panel, nameRef.current], {
+          opacity: 0,
+          duration: 0.2,
+          ease: "power2.in",
+        })
+        .add(() => {
+          setActiveId(id);
+          if (panel) gsap.set(panel, { clearProps: "clipPath", opacity: 0 });
+          requestAnimationFrame(() => {
+            gsap.to([panelRef.current, nameRef.current], {
+              opacity: 1,
+              duration: 0.35,
+              ease: "power2.out",
+            });
+          });
+        });
+      return;
+    }
+
     const state = panel ? Flip.getState(panel) : null;
 
     gsap
@@ -105,21 +131,21 @@ export default function BurekFeature() {
     <section
       id="burek"
       ref={rootRef}
-      className="section-shell relative overflow-hidden bg-porcelain"
+      className="section-shell relative overflow-hidden bg-surface-a"
     >
-      {/* Layered paper effect */}
+      {/* Layered paper effect — lighter inset on small screens */}
       <div
-        className="pointer-events-none absolute inset-6 md:inset-10 border border-oat/80 bg-oat/25"
+        className="pointer-events-none absolute inset-3 sm:inset-6 md:inset-10 border border-porcelain/15 bg-surface-b/60"
         aria-hidden
       />
       <div
-        className="pointer-events-none absolute inset-10 md:inset-14 border border-copper/20 rotate-[-0.6deg]"
+        className="pointer-events-none absolute inset-5 sm:inset-10 md:inset-14 border border-copper/20 rotate-[-0.6deg] hidden sm:block"
         aria-hidden
       />
 
-      <div className="section-inner relative z-10">
-        <div className="grid gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-12 items-center">
-          <div data-burek-enter className="relative">
+      <div className="section-inner relative z-10 min-w-0">
+        <div className="grid gap-8 md:gap-10 lg:grid-cols-[1.1fr_0.9fr] lg:gap-12 items-center min-w-0">
+          <div data-burek-enter className="relative order-2 lg:order-1 flex flex-col items-center lg:items-stretch w-full min-w-0 max-w-full">
             <p
               className="absolute -left-2 top-0 hidden xl:block font-display text-[0.85rem] uppercase tracking-[0.35em] text-copper writing-vertical-rl rotate-180"
               style={{ writingMode: "vertical-rl" }}
@@ -130,84 +156,84 @@ export default function BurekFeature() {
 
             <div
               ref={panelRef}
-              className="relative ml-0 xl:ml-10 aspect-[5/4] overflow-hidden bg-oat"
-              style={{ clipPath: "inset(0 0% 0 0)" }}
+              className="relative mx-auto w-[min(100%,18.5rem)] sm:w-[min(100%,24rem)] md:w-[min(100%,28rem)] lg:w-full lg:max-w-none xl:ml-10 aspect-[4/3] sm:aspect-[5/4] overflow-hidden bg-surface-b"
             >
               <Image
                 key={active.id}
                 src={active.image}
                 alt={`${active.name} — representative imagery`}
                 fill
-                sizes="(max-width: 1024px) 100vw, 55vw"
-                className="object-cover"
+                sizes="(max-width: 640px) 18.5rem, (max-width: 1024px) 28rem, 55vw"
+                className="object-cover object-center"
               />
-              {/* Layered rectangular masks decoration */}
-              <div className="pointer-events-none absolute inset-4 border border-white/40" />
-              <div className="pointer-events-none absolute inset-8 border border-copper/30" />
+              <div className="pointer-events-none absolute inset-2 sm:inset-4 border border-porcelain/40" />
+              <div className="pointer-events-none absolute inset-6 sm:inset-8 border border-copper/30 hidden sm:block" />
             </div>
-            <p className="mt-3 text-xs text-smoke/50">
+            <p className="mt-3 text-xs text-porcelain/50 text-center lg:text-left">
               Representative pastry photography — not JB product photos.
             </p>
           </div>
 
-          <div data-burek-enter>
+          <div data-burek-enter className="order-1 lg:order-2 min-w-0 max-w-full overflow-hidden">
             <p className="eyebrow mb-4">The Burek Reveal</p>
-            <h2 className="font-display text-display-md text-smoke mb-5 md:mb-6">
+            <h2 className="font-display text-display-md text-porcelain mb-5 md:mb-6">
               GOLDEN
               <br />
               <span className="text-copper">LAYERS.</span>
             </h2>
 
             <div
-              className="relative flex flex-wrap gap-x-4 gap-y-2 mb-8 pb-3 border-b border-smoke/10"
+              className="relative mb-6 md:mb-8 pb-3 border-b border-porcelain/10 min-w-0"
               role="tablist"
               aria-label="Burek varieties"
             >
+              <div className="flex gap-x-4 overflow-x-auto scrollbar-none max-w-full">
+                {burekItems.map((item) => {
+                  const selected = item.id === activeId;
+                  return (
+                    <button
+                      key={item.id}
+                      type="button"
+                      role="tab"
+                      aria-selected={selected}
+                      ref={(el) => {
+                        tabRefs.current[item.id] = el;
+                      }}
+                      onClick={() => select(item.id)}
+                      className={`shrink-0 py-2 text-sm font-semibold tracking-wide min-h-10 whitespace-nowrap transition-colors ${
+                        selected ? "text-porcelain" : "text-porcelain/40 hover:text-porcelain/70"
+                      }`}
+                    >
+                      {labels[item.id] || item.name}
+                    </button>
+                  );
+                })}
+              </div>
               <span
                 ref={underlineRef}
                 className="absolute bottom-0 left-0 h-[2px] bg-copper"
                 aria-hidden
               />
-              {burekItems.map((item) => {
-                const selected = item.id === activeId;
-                return (
-                  <button
-                    key={item.id}
-                    type="button"
-                    role="tab"
-                    aria-selected={selected}
-                    ref={(el) => {
-                      tabRefs.current[item.id] = el;
-                    }}
-                    onClick={() => select(item.id)}
-                    className={`py-2 text-sm font-semibold tracking-wide min-h-10 transition-colors ${
-                      selected ? "text-smoke" : "text-smoke/40 hover:text-smoke/70"
-                    }`}
-                  >
-                    {labels[item.id] || item.name}
-                  </button>
-                );
-              })}
             </div>
 
-            <div className="bg-white/70 border border-smoke/8 p-5 md:p-7">
+            <div className="bg-surface-card/70 border border-porcelain/8 p-4 sm:p-5 md:p-7">
               <div className="flex items-baseline justify-between gap-3 mb-3 overflow-hidden">
                 <h3
                   ref={nameRef}
-                  className="font-display text-[1.45rem] sm:text-[1.7rem] md:text-[2.2rem] text-smoke leading-none"
+                  className="font-display text-[1.35rem] sm:text-[1.7rem] md:text-[2.2rem] text-porcelain leading-none"
                 >
                   {active.name}
                 </h3>
                 {showPrices ? (
-                  <span className="text-sm font-semibold text-copper">
+                  <span className="shrink-0 text-sm font-semibold text-copper">
                     ${active.price}
                   </span>
                 ) : null}
               </div>
-              <p className="text-[1rem] leading-relaxed text-smoke/70">
+              <p className="text-[0.95rem] sm:text-[1rem] leading-relaxed text-porcelain/70">
                 {active.description}
               </p>
-              <p className="mt-4 text-xs text-smoke/45">
+              <p className="mt-4 text-xs text-porcelain/45">
                 Whole burek · Indicative Uber Eats price
               </p>
             </div>

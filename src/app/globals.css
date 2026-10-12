@@ -1,40 +1,40 @@
 @import "tailwindcss";
 
 /**
- * SMOKED COPPER & IVORY — palette for JB Charcoal Grill & Burek
- * Warm ivory, soft sand, smoked black, burnt copper, olive grey.
+ * STEEL & AQUA — palette for JB Charcoal Grill & Burek
+ * Cool graphite/steel only. Aqua accent. No brown / red / terracotta.
  */
 :root {
-  /* Warm Ivory — main paper */
-  --porcelain: #f8f3e9;
-  /* Smoked Black */
-  --smoke: #242424;
-  /* Burnt Copper — primary accent */
-  --copper: #c46c45;
-  /* Olive Grey — secondary emphasis */
-  --petrol: #777a65;
-  /* Soft Sand — alternate surfaces / secondary text on dark */
-  --oat: #dfc8a8;
-  /* Pure White */
-  --white: #ffffff;
-  /* Copper Hover */
-  --saffron-deep: #a95736;
+  /* Mist — primary text / highlights on dark */
+  --porcelain: #dce2ea;
+  /* Graphite — deepest backgrounds */
+  --smoke: #080a0e;
+  /* Aqua — primary accent (token name kept for existing classes) */
+  --copper: #2eb8a6;
+  /* Cool steel-teal — secondary emphasis */
+  --petrol: #6e8f96;
+  /* Cool pewter — muted text & soft tints on dark */
+  --oat: #9aa6b5;
+  /* Bright mist — text on accent / outline accents */
+  --white: #eef2f7;
+  /* Aqua hover */
+  --saffron-deep: #239688;
   /* Supporting */
-  --muted-text: #66615b;
-  --border-light: #ded6c9;
-  --border-dark: #48413c;
+  --muted-text: #8a94a3;
+  --border-light: #2a3340;
+  --border-dark: #3f4b5c;
   /* Surface pattern tokens */
-  --surface-a: #f8f3e9;
-  --surface-b: #dfc8a8;
-  --surface-c: #242424;
-  --surface-d: #48413c;
-  --surface-card: #ffffff;
-  --background: var(--porcelain);
-  --foreground: var(--smoke);
+  --surface-a: #0e1218;
+  --surface-b: #161c26;
+  --surface-c: #07090c;
+  --surface-d: #2a3340;
+  --surface-card: #121821;
+  --background: var(--surface-a);
+  --foreground: var(--porcelain);
   --section-pad-y: clamp(2.75rem, 6vw, 6.5rem);
-  --section-pad-x: clamp(1.1rem, 4vw, 3.5rem);
+  --section-pad-x: clamp(1rem, 4vw, 3.5rem);
   --content-max: 74rem;
-  --nav-height: 4.5rem;
+  --nav-height: 4.25rem;
   /* Responsive type scale — smaller on phones, expressive on desktop */
   --text-body: clamp(0.9rem, 0.86rem + 0.2vw, 1.02rem);
   --text-lead: clamp(0.92rem, 0.88rem + 0.22vw, 1.05rem);
@@ -64,8 +64,9 @@
   --font-sans: var(--font-dm-sans);
 }
 
+/* bg-porcelain maps to charcoal paper so existing section classes stay dark */
 .bg-porcelain {
-  background-color: var(--porcelain);
+  background-color: var(--surface-a);
 }
 
 .text-porcelain {
@@ -112,8 +113,8 @@ html.lenis body {
 
 body {
   margin: 0;
-  background: var(--porcelain);
-  color: var(--smoke);
+  background: var(--surface-a);
+  color: var(--porcelain);
   font-family: var(--font-dm-sans), system-ui, sans-serif;
   font-size: var(--text-body);
   line-height: 1.55;
@@ -206,7 +207,9 @@ h4,
 
 @media (max-width: 639px) {
   :root {
-    --section-pad-y: clamp(2.5rem, 8vw, 3.25rem);
+    --section-pad-y: clamp(2.25rem, 7vw, 3rem);
+    --section-pad-x: clamp(1rem, 4.5vw, 1.35rem);
+    --nav-height: 4rem;
   }
 
   .eyebrow {
@@ -218,6 +221,13 @@ h4,
     min-height: 2.55rem;
     padding: 0.55rem 1.1rem;
     font-size: 0.74rem;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  :root {
+    --section-pad-y: clamp(2.75rem, 5vw, 4.5rem);
+    --section-pad-x: clamp(1.35rem, 3.5vw, 2.25rem);
   }
 }
 
@@ -250,14 +260,15 @@ button {
   position: absolute;
   inset: 0;
   z-index: 1;
-  opacity: 0.04;
+  opacity: 0.07;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  mix-blend-mode: multiply;
+  mix-blend-mode: soft-light;
 }
 
 .section-shell {
   position: relative;
   padding: var(--section-pad-y) var(--section-pad-x);
+  overflow-x: clip;
 }
 
 .section-inner {
@@ -265,20 +276,20 @@ button {
   margin-inline: auto;
 }
 
-/* Alternating surface patterns — recolored, structure unchanged */
+/* Alternating surface patterns — graphite ember, structure unchanged */
 .surface-moss {
   background:
-    linear-gradient(160deg, #f8f3e9 0%, #f3ebe0 48%, #faf6ef 100%);
+    linear-gradient(160deg, #14181f 0%, #11141a 48%, #1a1f28 100%);
 }
 
 .surface-stone {
   background:
-    linear-gradient(180deg, #dfc8a8 0%, #d6be9a 55%, #e4d0b4 100%);
+    linear-gradient(180deg, #1a1f28 0%, #171c24 55%, #222833 100%);
 }
 
 .surface-lagoon {
   background:
-    linear-gradient(145deg, #2e2925 0%, #242424 55%, #48413c 100%);
+    linear-gradient(145deg, #12161d 0%, #0c0e12 55%, #1a1f28 100%);
   color: var(--porcelain);
 }
 
@@ -294,29 +305,29 @@ button {
 
 .surface-forge {
   background:
-    linear-gradient(165deg, #2a2622 0%, #242424 50%, #35302c 100%);
+    linear-gradient(165deg, #12161d 0%, #0c0e12 50%, #1a1f28 100%);
   color: var(--porcelain);
 }
 
 .surface-verdigris {
   background:
-    linear-gradient(135deg, #c46c45 0%, #a95736 45%, #8f4a2f 100%);
+    linear-gradient(135deg, #2eb8a6 0%, #239688 45%, #1a7a6e 100%);
   color: var(--white);
 }
 
 .surface-quilt {
-  background-color: #f8f3e9;
+  background-color: #11141a;
   background-image:
-    linear-gradient(90deg, color-mix(in srgb, var(--copper) 8%, transparent) 1px, transparent 1px),
-    linear-gradient(color-mix(in srgb, var(--smoke) 5%, transparent) 1px, transparent 1px);
+    linear-gradient(90deg, color-mix(in srgb, var(--copper) 12%, transparent) 1px, transparent 1px),
+    linear-gradient(color-mix(in srgb, var(--porcelain) 6%, transparent) 1px, transparent 1px);
   background-size: 28px 28px;
 }
 
 .surface-ripple {
-  background-color: #f3ebe0;
+  background-color: #14181f;
   background-image:
-    radial-gradient(circle at 20% 20%, color-mix(in srgb, var(--copper) 12%, transparent) 0 2px, transparent 3px),
-    radial-gradient(circle at 80% 60%, color-mix(in srgb, var(--petrol) 10%, transparent) 0 2px, transparent 3px);
+    radial-gradient(circle at 20% 20%, color-mix(in srgb, var(--copper) 16%, transparent) 0 2px, transparent 3px),
+    radial-gradient(circle at 80% 60%, color-mix(in srgb, var(--petrol) 12%, transparent) 0 2px, transparent 3px);
   background-size: 36px 36px, 48px 48px;
 }
 
@@ -378,18 +389,19 @@ button {
 
 .btn-secondary {
   background: transparent;
-  color: var(--smoke);
-  border: 1px solid color-mix(in srgb, var(--smoke) 28%, transparent);
+  color: var(--porcelain);
+  border: 1px solid color-mix(in srgb, var(--porcelain) 28%, transparent);
 }
 
 .btn-secondary:hover {
-  border-color: var(--smoke);
-  background: color-mix(in srgb, var(--smoke) 4%, transparent);
+  border-color: var(--porcelain);
+  background: color-mix(in srgb, var(--porcelain) 8%, transparent);
 }
 
 .btn-light {
-  background: var(--white);
-  color: var(--smoke);
+  background: var(--surface-card);
+  color: var(--porcelain);
+  border: 1px solid var(--border-light);
 }
 
 .btn-outline-light {

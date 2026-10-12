@@ -15,18 +15,18 @@ function Track({ words, reverse = false }) {
   const doubled = [...words, ...words, ...words, ...words];
   return (
     <div
-      className={`flex w-max items-center gap-8 md:gap-14 ${reverse ? "flex-row-reverse" : ""}`}
+      className={`flex w-max items-center gap-5 sm:gap-8 md:gap-14 ${reverse ? "flex-row-reverse" : ""}`}
       data-kinetic-track
       data-direction={reverse ? "right" : "left"}
     >
       {doubled.map((word, i) => (
-        <span key={`${word}-${i}`} className="inline-flex items-center gap-8 md:gap-14">
-          <span className="font-display text-[clamp(1.15rem,3.2vw,3rem)] tracking-[0.06em] whitespace-nowrap text-smoke">
+        <span key={`${word}-${i}`} className="inline-flex items-center gap-5 sm:gap-8 md:gap-14">
+          <span className="font-display text-[clamp(1.05rem,2.8vw+0.4rem,3rem)] tracking-[0.06em] whitespace-nowrap text-porcelain">
             {word}
           </span>
           <Flame
-            size={18}
-            className="text-copper shrink-0"
+            size={16}
+            className="text-copper shrink-0 sm:w-[18px] sm:h-[18px]"
             aria-hidden
             strokeWidth={1.5}
           />
@@ -89,7 +89,7 @@ export default function KineticStrip() {
   return (
     <section
       ref={rootRef}
-      className="relative overflow-hidden border-y border-smoke/10 bg-oat/40 py-5 md:py-7"
+      className="relative overflow-hidden border-y border-porcelain/10 bg-surface-b py-5 md:py-7"
       aria-label="Kinetic typography strip"
     >
       <div className="absolute inset-x-0 top-1/2 h-px -translate-y-1/2 bg-copper/25" aria-hidden />

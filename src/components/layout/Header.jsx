@@ -155,14 +155,14 @@ export default function Header() {
       <div
         id="mobile-nav"
         ref={panelRef}
-        className="lg:hidden fixed inset-0 z-40 bg-porcelain"
+        className="lg:hidden fixed inset-0 z-40 bg-surface-a"
         role="dialog"
         aria-modal="true"
         aria-label="Mobile navigation"
         aria-hidden={!open}
         style={{ visibility: "hidden", opacity: 0, pointerEvents: "none" }}
       >
-        <div className="flex h-full flex-col px-6 pb-10 pt-28">
+        <div className="flex h-full flex-col px-5 sm:px-8 pb-10 pt-24 sm:pt-28">
           <nav className="flex flex-col gap-1" aria-label="Mobile primary">
             {restaurant.nav.map((item) => (
               <a
@@ -171,7 +171,7 @@ export default function Header() {
                 data-mobile-link
                 onClick={close}
                 tabIndex={open ? 0 : -1}
-                  className="font-display text-[clamp(1.85rem,8vw,3.25rem)] text-smoke border-b border-smoke/10 py-2.5"
+                className="font-display text-[clamp(1.75rem,7vw,3.25rem)] text-porcelain border-b border-porcelain/10 py-2.5"
               >
                 {item.label}
               </a>
@@ -194,15 +194,15 @@ export default function Header() {
       {/* Floating bar — always above the menu panel so hamburger/close stays clickable */}
       <div
         data-nav-bar
-        className={`relative z-50 mx-auto mt-3 flex w-[min(100%-1.25rem,70rem)] items-center justify-between rounded-full px-4 py-2.5 md:px-5 transition-[padding,background,box-shadow,border-color] duration-500 ${
+        className={`relative z-50 mx-auto mt-3 flex w-[min(100%-1rem,70rem)] sm:w-[min(100%-1.5rem,70rem)] items-center justify-between rounded-full px-3.5 py-2 sm:px-4 sm:py-2.5 md:px-5 transition-[padding,background,box-shadow,border-color] duration-500 ${
           scrolled || open
-            ? "bg-porcelain/95 shadow-[0_12px_40px_rgba(36,36,36,0.12)] backdrop-blur-md border border-smoke/10 py-2"
-            : "bg-porcelain/55 backdrop-blur-md border border-smoke/5"
+            ? "bg-surface-a/95 shadow-[0_12px_40px_rgba(36,36,36,0.12)] backdrop-blur-md border border-porcelain/10 py-2"
+            : "bg-surface-a/55 backdrop-blur-md border border-porcelain/5"
         }`}
       >
         <a
           href="#top"
-          className="group relative overflow-hidden font-display text-[0.95rem] sm:text-[1.05rem] tracking-tight text-smoke leading-tight"
+          className="group relative overflow-hidden font-display text-[0.95rem] sm:text-[1.05rem] tracking-tight text-porcelain leading-tight"
           onClick={close}
           aria-label={restaurant.name}
         >
@@ -232,7 +232,7 @@ export default function Header() {
               }}
               aria-label={item.label}
               aria-current={active === item.href ? "true" : undefined}
-              className="relative h-5 overflow-hidden text-[0.82rem] font-medium tracking-[0.04em] uppercase text-smoke/75 hover:text-smoke"
+              className="relative h-5 overflow-hidden text-[0.82rem] font-medium tracking-[0.04em] uppercase text-porcelain/75 hover:text-porcelain"
               onMouseEnter={onLinkEnter}
               onMouseLeave={onLinkLeave}
             >
@@ -257,7 +257,7 @@ export default function Header() {
 
         <button
           type="button"
-          className="lg:hidden relative z-50 flex h-11 w-11 items-center justify-center rounded-full border border-smoke/15 text-smoke bg-porcelain/80"
+          className="lg:hidden relative z-50 flex h-11 w-11 items-center justify-center rounded-full border border-porcelain/15 text-porcelain bg-surface-a/80"
           aria-expanded={open}
           aria-controls="mobile-nav"
           aria-label={open ? "Close menu" : "Open menu"}

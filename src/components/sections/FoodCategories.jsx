@@ -89,25 +89,25 @@ export default function FoodCategories() {
   };
 
   return (
-    <section id="flavours" ref={rootRef} className="section-shell bg-porcelain">
+    <section id="flavours" ref={rootRef} className="section-shell bg-surface-a">
       <div className="section-inner">
-        <div className="mb-8 md:mb-12 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+        <div className="mb-8 md:mb-12 flex flex-col gap-3 lg:flex-row lg:items-end lg:justify-between lg:gap-4">
           <div>
             <p className="eyebrow mb-3">The Archive</p>
-            <h2 className="font-display text-display-md text-smoke">
+            <h2 className="font-display text-display-md text-porcelain">
               ROTATING
               <br />
               <span className="text-copper">FOOD ARCHIVE.</span>
             </h2>
           </div>
-          <p className="max-w-xs text-[0.85rem] md:text-sm leading-relaxed text-smoke/65 md:text-right">
-            Hover or select a category. One stage. Three stories.
+          <p className="max-w-md lg:max-w-xs text-[0.85rem] md:text-sm leading-relaxed text-porcelain/65 lg:text-right">
+            Select a category. One stage. Three stories.
           </p>
         </div>
 
-        <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:gap-10 items-stretch">
+        <div className="grid gap-6 md:gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:gap-10 items-stretch">
           <div
-            className="flex flex-row lg:flex-col gap-2 overflow-x-auto lg:overflow-visible pb-2 lg:pb-0"
+            className="flex flex-row gap-3 overflow-x-auto snap-x snap-mandatory pb-3 -mx-[var(--section-pad-x)] px-[var(--section-pad-x)] lg:mx-0 lg:px-0 lg:flex-col lg:gap-2 lg:overflow-visible lg:pb-0 lg:snap-none scrollbar-none"
             role="tablist"
             aria-label="Food categories"
           >
@@ -124,23 +124,23 @@ export default function FoodCategories() {
                   onMouseEnter={() => {
                     if (window.matchMedia("(hover: hover)").matches) select(index);
                   }}
-                  className={`group relative min-w-[11rem] lg:min-w-0 text-left border-b py-4 md:py-5 transition-colors ${
-                    selected ? "border-copper" : "border-smoke/15 hover:border-smoke/40"
+                  className={`group relative snap-start shrink-0 w-[min(70vw,14rem)] sm:w-[15rem] lg:w-auto lg:min-w-0 text-left border-b py-3.5 md:py-5 transition-colors ${
+                    selected ? "border-copper" : "border-porcelain/15 hover:border-porcelain/40"
                   }`}
                 >
                   <span className="text-[0.7rem] font-semibold tracking-[0.2em] text-copper">
                     {cat.number}
                   </span>
                   <span
-                    className={`mt-1 block font-display text-[1.25rem] sm:text-[1.45rem] md:text-[2rem] leading-none transition-colors ${
-                      selected ? "text-smoke" : "text-smoke/45"
+                    className={`mt-1 block font-display text-[1.2rem] sm:text-[1.35rem] lg:text-[2rem] leading-none transition-colors ${
+                      selected ? "text-porcelain" : "text-porcelain/45"
                     }`}
                   >
                     {cat.title}
                   </span>
                   <span
-                    className={`mt-2 block text-[0.8rem] md:text-sm leading-relaxed transition-opacity ${
-                      selected ? "opacity-100 text-smoke/65" : "opacity-0 lg:opacity-40 text-smoke/50"
+                    className={`mt-2 hidden lg:block text-sm leading-relaxed transition-opacity ${
+                      selected ? "opacity-100 text-porcelain/65" : "opacity-40 text-porcelain/50"
                     }`}
                   >
                     {cat.description}
@@ -155,7 +155,7 @@ export default function FoodCategories() {
             ref={imageRef}
             data-cat-stage
             data-cursor="EXPLORE"
-            className="relative min-h-[18rem] sm:min-h-[22rem] md:min-h-[28rem] overflow-hidden bg-smoke"
+            className="relative min-h-[16rem] sm:min-h-[20rem] md:min-h-[24rem] lg:min-h-[28rem] overflow-hidden bg-smoke"
             aria-label={`Explore ${current.title}`}
           >
             <div data-cat-img className="absolute inset-0" key={current.id}>
