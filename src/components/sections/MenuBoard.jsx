@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
 import { useGSAP } from "@gsap/react";
@@ -8,23 +8,30 @@ import { gsap, Flip, registerGsapPlugins } from "@/lib/gsapSetup";
 import { menuCategories, menuItems } from "@/data/menu";
 import { restaurant, showPrices } from "@/data/restaurant";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
-import { isFinePointer } from "@/lib/animations";
 
 registerGsapPlugins();
 
+const INITIAL_VISIBLE = 6;
+
 export default function MenuBoard() {
   const [filter, setFilter] = useState("all");
-  const [preview, setPreview] = useState(null);
+  const [expanded, setExpanded] = useState(false);
   const rootRef = useRef(null);
   const listRef = useRef(null);
   const indicatorRef = useRef(null);
   const tabRefs = useRef({});
-  const floatRef = useRef(null);
   const reduced = useReducedMotion();
 
   const filtered = useMemo(() => {
     if (filter === "all") return menuItems;
     return menuItems.filter((item) => item.category === filter);
+  }, [filter]);
+
+  const visible = expanded ? filtered : filtered.slice(0, INITIAL_VISIBLE);
+  const hasMore = filtered.length > INITIAL_VISIBLE;
+
+  useEffect(() => {
+    setExpanded(false);
   }, [filter]);
 
   useGSAP(
@@ -83,11 +90,10 @@ export default function MenuBoard() {
           if (!next) return;
           gsap.fromTo(
             next,
-            { opacity: 0, y: 18, clipPath: "inset(0 0 40% 0)" },
+            { opacity: 0, y: 18 },
             {
               opacity: 1,
               y: 0,
-              clipPath: "inset(0 0 0% 0)",
               duration: 0.45,
               stagger: 0.03,
               ease: "power2.out",
@@ -97,29 +103,6 @@ export default function MenuBoard() {
         });
       },
     });
-  };
-
-  const onItemMove = (e, item) => {
-    if (!isFinePointer() || reduced) return;
-    setPreview(item);
-    const float = floatRef.current;
-    if (!float) return;
-    const bounds = rootRef.current.getBoundingClientRect();
-    gsap.to(float, {
-      x: e.clientX - bounds.left + 24,
-      y: e.clientY - bounds.top - 40,
-      opacity: 1,
-      duration: 0.35,
-      ease: "power3.out",
-      overwrite: true,
-    });
-  };
-
-  const onItemLeave = () => {
-    setPreview(null);
-    if (floatRef.current) {
-      gsap.to(floatRef.current, { opacity: 0, duration: 0.25 });
-    }
   };
 
   return (
@@ -183,71 +166,61 @@ export default function MenuBoard() {
           </div>
         </div>
 
-        <ul ref={listRef} className="relative divide-y divide-porcelain/10">
-          {filtered.map((item) => (
-            <li
-              key={item.id}
-              data-menu-item
-              className="group relative flex gap-3 sm:gap-4 md:gap-6 py-4 sm:py-5 md:py-6"
-              onMouseMove={(e) => onItemMove(e, item)}
-              onMouseLeave={onItemLeave}
-            >
-              <div className="relative h-14 w-14 shrink-0 overflow-hidden sm:h-16 sm:w-16 md:h-[4.5rem] md:w-[4.5rem] lg:hidden">
+        <ul
+          ref={listRef}
+          className="relative grid grid-cols-2 lg:grid-cols-3 gap-x-3 gap-y-5 sm:gap-x-5 sm:gap-y-7 lg:gap-x-6 lg:gap-y-8"
+        >
+          {visible.map((item) => (
+            <li key={item.id} data-menu-item className="group flex flex-col min-w-0">
+              <div className="relative aspect-[5/4] overflow-hidden bg-smoke">
                 {item.category !== "drinks" ? (
                   <Image
                     src={item.image}
-                    alt=""
+                    alt={`${item.name} — representative imagery`}
                     fill
-                    sizes="72px"
-                    className="object-cover"
-                    aria-hidden
+                    sizes="(max-width: 1024px) 50vw, 33vw"
+                    className="object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                 ) : (
                   <div className="flex h-full w-full items-center justify-center bg-surface-b">
-                    <span className="text-[0.55rem] font-semibold uppercase tracking-[0.16em] text-porcelain/45">
+                    <span className="text-[0.62rem] sm:text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-porcelain/45">
                       Drink
                     </span>
                   </div>
                 )}
               </div>
 
-              <div className="flex-1 min-w-0">
-                <div className="flex items-start sm:items-baseline justify-between gap-3">
-                  <h3 className="font-display text-[1.15rem] sm:text-display-sm text-porcelain leading-tight transition-transform duration-300 group-hover:translate-x-1">
+              <div className="mt-2.5 sm:mt-4 flex flex-1 flex-col gap-1.5 sm:gap-2">
+                <div className="flex items-start justify-between gap-2 sm:gap-3">
+                  <h3 className="font-display text-[1.05rem] sm:text-[1.35rem] leading-tight text-porcelain">
                     {item.name}
                   </h3>
                   {showPrices ? (
-                    <span className="shrink-0 text-sm font-semibold text-copper tabular-nums pt-0.5">
+                    <span className="shrink-0 text-xs sm:text-sm font-semibold text-copper tabular-nums pt-0.5 sm:pt-1">
                       ${item.price}
                     </span>
                   ) : null}
                 </div>
-                <div className="my-2 sm:my-2.5 h-px w-full border-t border-dashed border-porcelain/15" />
-                <p className="text-[0.85rem] sm:text-sm leading-relaxed text-porcelain/65 max-w-xl">
-                  {item.description}
+                <p className="text-[0.75rem] sm:text-sm leading-relaxed text-porcelain/65 line-clamp-3 sm:line-clamp-none">
+                  {item.shortDescription || item.description}
                 </p>
               </div>
             </li>
           ))}
         </ul>
 
-        {/* Desktop floating preview */}
-        <div
-          ref={floatRef}
-          className="pointer-events-none absolute left-0 top-0 z-20 hidden lg:block h-40 w-32 overflow-hidden border-[3px] border-porcelain/70 shadow-[0_20px_50px_rgba(36,36,36,0.2)] opacity-0"
-          aria-hidden
-        >
-          {preview && preview.category !== "drinks" ? (
-            <Image
-              key={preview.id}
-              src={preview.image}
-              alt=""
-              fill
-              sizes="128px"
-              className="object-cover"
-            />
-          ) : null}
-        </div>
+        {hasMore ? (
+          <div className="mt-8 sm:mt-10 flex justify-center">
+            <button
+              type="button"
+              onClick={() => setExpanded((v) => !v)}
+              className="min-h-11 px-6 text-sm font-semibold uppercase tracking-[0.14em] text-petrol border-b border-petrol/40 transition-colors hover:text-copper hover:border-copper"
+              aria-expanded={expanded}
+            >
+              {expanded ? "Show less" : `See more (${filtered.length - INITIAL_VISIBLE} more)`}
+            </button>
+          </div>
+        ) : null}
       </div>
     </section>
   );

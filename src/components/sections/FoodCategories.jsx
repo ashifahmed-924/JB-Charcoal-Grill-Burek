@@ -107,7 +107,7 @@ export default function FoodCategories() {
 
         <div className="grid gap-6 md:gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:gap-10 items-stretch">
           <div
-            className="flex flex-row gap-3 overflow-x-auto snap-x snap-mandatory pb-3 -mx-[var(--section-pad-x)] px-[var(--section-pad-x)] lg:mx-0 lg:px-0 lg:flex-col lg:gap-2 lg:overflow-visible lg:pb-0 lg:snap-none scrollbar-none"
+            className="flex flex-row items-stretch justify-center gap-2 sm:gap-3 pb-3 -mx-[var(--section-pad-x)] px-[var(--section-pad-x)] lg:mx-0 lg:px-0 lg:flex-col lg:items-stretch lg:justify-start lg:gap-2 lg:pb-0"
             role="tablist"
             aria-label="Food categories"
           >
@@ -124,11 +124,11 @@ export default function FoodCategories() {
                   onMouseEnter={() => {
                     if (window.matchMedia("(hover: hover)").matches) select(index);
                   }}
-                  className={`group relative snap-start shrink-0 w-[min(70vw,14rem)] sm:w-[15rem] lg:w-auto lg:min-w-0 text-left border-b py-3.5 md:py-5 transition-colors ${
+                  className={`group relative flex-1 min-w-0 lg:flex-none lg:w-auto text-center lg:text-left border-b py-3.5 md:py-5 transition-colors ${
                     selected ? "border-copper" : "border-porcelain/15 hover:border-porcelain/40"
                   }`}
                 >
-                  <span className="text-[0.7rem] font-semibold tracking-[0.2em] text-copper">
+                  <span className="block text-[0.7rem] font-semibold tracking-[0.2em] text-copper">
                     {cat.number}
                   </span>
                   <span

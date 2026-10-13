@@ -75,6 +75,12 @@ const jsonLd = {
     postalCode: "3175",
     addressCountry: "AU",
   },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: restaurant.geo.lat,
+    longitude: restaurant.geo.lng,
+  },
+  hasMap: restaurant.links.maps,
   url: "https://jbcharcoalgrill.example",
   menu: restaurant.links.uberEats,
   sameAs: [restaurant.links.maps, restaurant.links.uberEats],

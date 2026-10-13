@@ -1,7 +1,6 @@
 "use client";
 
 import { useRef } from "react";
-import Image from "next/image";
 import { Phone, Navigation, ArrowUpRight } from "lucide-react";
 import { useGSAP } from "@gsap/react";
 import {
@@ -195,34 +194,36 @@ export default function VisitUs() {
             </address>
           </div>
 
-          <a
-            href={restaurant.links.maps}
-            target="_blank"
-            rel="noopener noreferrer"
+          <div
             data-map-panel
-            data-cursor="EXPLORE"
-            className="group relative block aspect-[5/4] sm:aspect-[16/11] lg:aspect-[5/4] overflow-hidden bg-surface-d"
-            aria-label="Open location in Google Maps"
+            className="relative aspect-[5/4] sm:aspect-[16/11] lg:aspect-[5/4] overflow-hidden bg-surface-d"
             style={{ clipPath: "inset(0% 0% 0% 0%)" }}
           >
-            <Image
-              src="/images/map-preview.webp"
-              alt="Map atmosphere preview for Dandenong location"
-              fill
-              sizes="(max-width: 1024px) 100vw, 45vw"
-              className="object-cover transition-transform duration-700 group-hover:scale-105"
+            <iframe
+              title="JB Charcoal Grill & Burek on Google Maps"
+              src={restaurant.links.mapEmbed}
+              className="absolute inset-0 h-full w-full border-0 grayscale-[20%] contrast-[1.05]"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              allowFullScreen
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-smoke/70 via-transparent to-transparent" />
-            <div className="absolute bottom-4 left-4 right-4 sm:bottom-5 sm:left-5 sm:right-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-3">
-              <span className="text-sm font-semibold text-porcelain">
+            <a
+              href={restaurant.links.maps}
+              target="_blank"
+              rel="noopener noreferrer"
+              data-cursor="EXPLORE"
+              className="absolute bottom-4 left-4 right-4 sm:bottom-5 sm:left-5 sm:right-5 z-10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 sm:gap-3 pointer-events-none"
+              aria-label="Open JB Charcoal Grill & Burek in Google Maps"
+            >
+              <span className="pointer-events-auto text-sm font-semibold text-porcelain drop-shadow-[0_1px_2px_rgba(0,0,0,0.65)]">
                 Stud Road · VIC 3175
               </span>
-              <span className="inline-flex items-center gap-1 rounded-full bg-copper px-3.5 py-2 text-[0.7rem] sm:text-xs font-semibold uppercase tracking-[0.12em] text-white">
+              <span className="pointer-events-auto inline-flex items-center gap-1 rounded-full bg-copper px-3.5 py-2 text-[0.7rem] sm:text-xs font-semibold uppercase tracking-[0.12em] text-white">
                 Open map
                 <ArrowUpRight size={14} aria-hidden />
               </span>
-            </div>
-          </a>
+            </a>
+          </div>
         </div>
       </div>
     </section>
